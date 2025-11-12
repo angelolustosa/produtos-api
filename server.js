@@ -41,20 +41,35 @@ app.get('/produtos', async (req, res) => {
   }
 });
 
+//Listar produto por id
+app.get('/produto/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+
+        const result = await pool.query('SELECT * FROM produtos WHERE id = $1', [id]);
+        res.status(200).json(result.rows[0]);
+    } catch (error) {
+        res.status(500).json({ erro: error.message });
+    }
+});
+
 
 // Adicionar produto
-app.post('/produtos', async (req, res) => {
-  const { nome, preco } = req.body;
+app.post('/produto', async (req, res) => {
+  const payload = req.body;
   try {
     const result = await pool.query(
       'INSERT INTO produtos (nome, preco) VALUES ($1, $2) RETURNING *',
-      [nome, preco]
+      [payload.nome, payload.preco]
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
     res.status(500).json({ erro: error.message });
   }
 });
+
+
+
 
 // Atualizar produto
 app.put('/produtos/:id', async (req, res) => {
@@ -71,8 +86,8 @@ app.put('/produtos/:id', async (req, res) => {
   }
 });
 
-// Deletar produto
-app.delete('/produtos/:id', async (req, res) => {
+// Exluir produto
+app.delete('/produto/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await pool.query('DELETE FROM produtos WHERE id=$1', [id]);

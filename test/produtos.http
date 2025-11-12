@@ -2,11 +2,24 @@
 GET http://localhost:3000/produtos
 Content-Type: application/json
 
+
+### Buscando um produto por id
+GET http://localhost:3000/produto/40
+Content-Type: application/json
+
 ### Inserindo um produto
 POST http://localhost:3000/produto
 Content-Type: application/json
 
 {
-    "nome": "Z Fold 7",
-    "preco": 5200.90
+    "nome": "Z Fold 6",
+    "preco": 4200.90
 }
+
+### Excluir um produto por id
+DELETE http://localhost:3000/produto/40
+Content-Type: application/json
+
+### Excluir um produto por id
+DELETE http://localhost:3000/produto/40
+Content-Type: application/json
