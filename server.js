@@ -41,6 +41,7 @@ app.get('/produtos', async (req, res) => {
   }
 });
 
+
 // Adicionar produto
 app.post('/produtos', async (req, res) => {
   const { nome, preco } = req.body;
